@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdk libs.versions.compileSdk.get().toInteger()
+
+    defaultConfig {
+        applicationId "io.github.uhsk.keyboard"
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.compileSdk.get().toInteger()
+        versionCode 1
+        versionName "1.0.0"
+        multiDexEnabled false
+        setProperty('archivesBaseName', "WechatKeyboardPlus-$versionName-$versionCode-" + (new Date()).format('yyyyMMdd'))
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            debuggable false
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+
+    packagingOptions {
+        exclude 'kotlin-tooling-metadata.json'
+        exclude 'DebugProbesKt.bin'
+        exclude '/kotlin/**.kotlin_builtins'
+        exclude '/org/apache/commons/codec/**/'
+        exclude '/META-INF/**.version'
+    }
+}
+
+dependencies {
+
+    // androidx
+    implementation libs.androidx.core
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.constraint
+
+    // kotlin
+    implementation libs.kotlin.coroutines
+    implementation libs.kotlin.extension
+
+    // commons
+    implementation libs.common.gson
+    implementation libs.common.joor
+    compileOnly    libs.common.xposed
+
+    // bundles
+    implementation libs.bundles.slf4j
+    implementation libs.bundles.koin
+
+}

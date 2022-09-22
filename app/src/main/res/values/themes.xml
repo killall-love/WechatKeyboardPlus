@@ -1,0 +1,5 @@
+<resources>
+
+    <style name="Theme.WechatKeyboardPlus" parent="Theme.AppCompat" />
+
+</resources>
